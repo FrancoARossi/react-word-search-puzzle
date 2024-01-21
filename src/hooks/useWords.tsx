@@ -6,11 +6,9 @@ type UseWordsProps = {
   lang?: "de" | "zh" | "it" | "fr" | "es" | "en";
 };
 
-const useWords = ({
-  amount = 1,
-  length,
-  lang = "en",
-}: UseWordsProps) => {
+const WORDS_API_URL = "https://random-word-api.herokuapp.com/word";
+
+const useWords = ({ amount = 1, length, lang = "en" }: UseWordsProps) => {
   const [words, setWords] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -20,7 +18,7 @@ const useWords = ({
       try {
         setLoading(true);
         const response = await fetch(
-          `${import.meta.env.VITE_WORDS_API_URL}?number=${amount}&lang=${lang}${
+          `${WORDS_API_URL}?number=${amount}&lang=${lang}${
             length ? `&length=${length}` : ""
           }`
         );
